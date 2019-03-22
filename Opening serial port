@@ -1,0 +1,8 @@
+# Importing the serial module by command - conda install -c anaconda pyserial
+import serial
+
+ser = serial.Serial()
+
+# Give port number your using
+ser.port = "COM1"
+ser.open()

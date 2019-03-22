@@ -1,0 +1,32 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(2,3,4,5,6,7);
+
+int pot0 = A0;
+int pot1 = A1;
+int pot2 = A2;
+
+int pot_val0 = 0;
+int pot_val1 = 0;
+int pot_val2 = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  lcd.begin(16,2);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  pot_val0 = analogRead(pot0);
+  pot_val1 = analogRead(pot1);
+  pot_val2 = analogRead(pot2);
+  
+  lcd.print(pot_val0);
+  lcd.print(" ");
+  lcd.print(pot_val1);
+  lcd.print(" ");
+  lcd.print(pot_val2);
+  lcd.print(" ");
+  delay(1000);
+  lcd.begin(16,2);
+}

@@ -67,7 +67,7 @@ while True:
     matrix_D = [[211,98,177],[116,232,214],[15,46,55]]
 
     # form a list of matrices with above matrix as a index
-    matrices = [matrix_A, matrix_B, matrix_C, matrix_C]
+    matrices = [matrix_A, matrix_B, matrix_C, matrix_D]
     # Letter array to keep track of letters
     Letter = ["A","B","C","D"]
 

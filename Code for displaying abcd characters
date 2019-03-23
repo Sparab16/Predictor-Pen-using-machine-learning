@@ -2,7 +2,8 @@
 
 # For this importing pyserial module needs to be installed
 import serial
-
+#Since print function is printing values on newline we have to use sys library to tackle that
+import sys
 #Function to compare the matrix
 def compare(curr_matrix,user_matrix):
     '''
@@ -53,29 +54,32 @@ while True:
         matrix.append(temp_array)
 
     # Printing the matrix
-    for i in matrix:
-        print(i)
-    print()
+    # for i in matrix:
+    #     print(i)
+    # print()
 
     ### COMPARISON PART###
 
-    # Create matrix for each letter alphabet i.e A, B etc.
+    # Create matrix for each letter alphabet i.e A, B etc. as well for space
 
     matrix_A = [[144,172,58],[255,178,158],[131,184,146]]
     matrix_B = [[74,144,0],[130,92,220],[174,190,144]]
     matrix_C = [[12,39,14],[57,131,211],[94,72,20]]
     matrix_D = [[211,98,177],[116,232,214],[15,46,55]]
-
+    matrix_space = [[175,246,183],[2,226,12],[195,145,241]]
+    matrix_newLine = [[162,135,135],[183,203,191],[250,21,100]]
     # form a list of matrices with above matrix as a index
-    matrices = [matrix_A, matrix_B, matrix_C, matrix_D]
+    matrices = [matrix_A, matrix_B, matrix_C, matrix_D,matrix_space,matrix_newLine]
     # Letter array to keep track of letters
-    Letter = ["A","B","C","D"]
+    Letter = ["A","B","C","D","  ","\n"]
 
     # Loop through each matrix to check if matix matches with anything
 
     for index, i in enumerate(matrices):
-        match = False
-        match = compare(i,matrix)
-        if match:
-            print("Letter is {}.".format(Letter[index]))
-            break
+        # match = False
+        # match = compare(i,matrix)
+        if compare(i,matrix):
+            # Using sys instead of print function due to new line problem
+                sys.stdout.write(Letter[index])
+                sys.stdout.flush()
+                break

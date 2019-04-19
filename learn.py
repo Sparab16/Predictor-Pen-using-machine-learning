@@ -7,23 +7,6 @@ import os, signals
 from sklearn.externals import joblib
 from sklearn.model_selection import GridSearchCV
 
-'''
-Author: Federico Terzi
-
-This module trains the machine learning algorithm and saves the model
-into "model.pkl".
-It also saves the classes to a file "classes.pkl"
-
-It analyze the dataset contained into the "data" directory.
-The dataset will be composed of N files. Each of those files is
-a recording of a specific gesture.
-The name of the file rapresents the meaning of the recording.
-For example, the file:
-a_sample_0_1.txt
-Is a recording for the "a" sign, recorded in the batch "0".
-
-This is a work in progress....
-'''
 
 #Check if the module is executed as main, needed for parallel processing
 if __name__ == '__main__':
@@ -50,19 +33,24 @@ if __name__ == '__main__':
 			x_data.append(sample.get_linearized())
 			#Extract the category from the file name
 			#For example, the file "a_sample_0.txt" will be considered as "a"
-			# print(name.split("_"))
-			category = name[0]
 
+			category = name[0]
+			print(name)
 			print(category)
 			#Get a number for the category, as an offset from the category
 			#to the a char in Ascii
-			print("Category = {} , ord(Category)={}, ord('a')={}".format(category,ord(category),ord("a")))
+			# print("Category = {} , ord(Category)={}, ord('a')={}".format(category,ord(category),ord("a")))
 			number = ord(category) - ord("a")
 			#Add the category to the y_data list
 			y_data.append(number)
 			#Include the category and the corresponding number into a dictionary
 			#for easy access and referencing
-			classes[number] = category
+			if number == -2:
+				classes[number] = " "
+			elif number == -52:
+				classes[number] = "\n"
+			else:
+				classes[number] = category
 			print(classes)
 
 	print("DONE")
@@ -73,7 +61,7 @@ if __name__ == '__main__':
 	params = {'C':[0.001,0.01,0.1,1], 'kernel':['linear']}
 
 	#Inizialize the model
-	svc = svm.SVC(probability = True)
+	svc = svm.SVC(probability = True, C = 100)
 	#Inizialize the GridSearchCV with 8 processing cores and maximum verbosity
 	clf = GridSearchCV(svc, params,verbose =10, n_jobs=8)
 
